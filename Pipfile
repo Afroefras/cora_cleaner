@@ -4,6 +4,11 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+numpy = "==1.24"
+librosa = "==0.10.0.post2"
+black = "==23.7.0"
+flake8 = "==6.0.0"
+resampy = "==0.4.2"
 
 [dev-packages]
 

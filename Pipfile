@@ -9,6 +9,7 @@ librosa = "==0.10.0.post2"
 black = "==23.7.0"
 flake8 = "==6.0.0"
 resampy = "==0.4.2"
+pydub = "==0.25.1"
 
 [dev-packages]
 

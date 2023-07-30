@@ -7,8 +7,8 @@ def noiser(audio_path: str, noise_path: str, louder: int) -> AudioSegment:
     audio = AudioSegment.from_file(audio_path, format="wav")
     noise = AudioSegment.from_file(noise_path, format="wav")
 
-    audio += audio_louder
-    mixed = audio.overlay(noise, position=0)
+    audio += louder
+    noised = audio.overlay(noise, position=0, loop=True)
 
     return noised
 

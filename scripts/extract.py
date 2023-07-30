@@ -8,7 +8,10 @@ def load_sounds(soundfiles_path: str, duration: int = 10, sr: int = 22050):
     input_length = sr * duration
 
     data = []
-    for sound_file in soundfiles_path.glob("*.wav"):
+    wav_files = soundfiles_path.glob("**/*.wav")
+    mp3_files = soundfiles_path.glob("**/*.mp3")
+
+    for sound_file in list(wav_files) + list(mp3_files):
         # use kaiser_fast technique for faster extraction
         X, sr = librosa.load(
             str(sound_file), sr=sr, duration=duration, res_type="kaiser_fast"

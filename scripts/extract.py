@@ -2,11 +2,10 @@ import librosa
 import numpy as np
 from pathlib import Path
 
+
 def load_mfcc(sound_path: str, duration: int, sr: int) -> np.array:
     # use kaiser_fast technique for faster extraction
-    X, sr = librosa.load(
-        sound_path, sr=sr, duration=duration, res_type="kaiser_fast"
-    )
+    X, sr = librosa.load(sound_path, sr=sr, duration=duration, res_type="kaiser_fast")
 
     dur = librosa.get_duration(y=X, sr=sr)
     if round(dur) < duration:
@@ -20,6 +19,7 @@ def load_mfcc(sound_path: str, duration: int, sr: int) -> np.array:
 
     return mfcc
 
+
 def load_all_sounds(soundfiles_path: str, duration: int = 10, sr: int = 22050) -> list:
     data = []
     soundfiles_path = Path(soundfiles_path)
@@ -32,11 +32,22 @@ def load_all_sounds(soundfiles_path: str, duration: int = 10, sr: int = 22050) -
     return data
 
 
-def load_heart_noised(clean_dir: str, noised_dir: str) -> np.array:
+def load_heart_noised(clean_dir: str, noised_dir: str) -> list:
     clean_dir = Path(clean_dir)
     noised_dir = Path(noised_dir)
 
+    noises = noised_dir.glob("**/*.mp3")
+    noises = list(map(str, noises))
+
+    clean_noises = {}
     for clean in clean_dir.glob("**/*.wav"):
         clean_name = clean.stem
 
-        
+        noises_related = filter(lambda x: clean_name in x, noises)
+        clean_noises[clean] = noises_related
+
+
+load_heart_noised(
+    clean_dir="data/heart_sound",
+    noised_dir="data/heart_noised",
+)

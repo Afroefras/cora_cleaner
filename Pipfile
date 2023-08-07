@@ -12,6 +12,7 @@ resampy = "==0.4.2"
 pydub = "==0.25.1"
 
 [dev-packages]
+ipykernel = "*"
 
 [requires]
 python_version = "3.11"

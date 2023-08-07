@@ -57,7 +57,14 @@ def load_heart_noised(clean_dir: str, noised_dir: str) -> list:
     return paths, tensors
 
 
-# paths, tensors = load_heart_noised(
+# paths_tensors = load_heart_noised(
 #     clean_dir="data/heart_sound",
 #     noised_dir="data/heart_noised",
 # )
+
+# import pickle
+
+# FILE_PATH = 'data/tensors/paths_tensors_2023-08-06.xz'
+# # Store data (serialize)
+# with open(FILE_PATH, 'wb') as handle:
+#     pickle.dump(paths_tensors, handle, protocol=pickle.HIGHEST_PROTOCOL)

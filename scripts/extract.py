@@ -39,15 +39,25 @@ def load_heart_noised(clean_dir: str, noised_dir: str) -> list:
     noises = noised_dir.glob("**/*.mp3")
     noises = list(map(str, noises))
 
-    clean_noises = {}
-    for clean in clean_dir.glob("**/*.wav"):
-        clean_name = clean.stem
+    paths = {}
+    tensors = []
+    for clean_path in clean_dir.glob("**/*.wav"):
+        clean_name = clean_path.stem
 
         noises_related = filter(lambda x: clean_name in x, noises)
-        clean_noises[clean] = noises_related
+        noises_related = list(noises_related)
+        paths[str(clean_path)] = noises_related
+
+        clean_tensor = load_mfcc(clean_path, duration=10, sr=22050)
+        for noise_path in noises_related:
+            noise_tensor = load_mfcc(noise_path, duration=10, sr=22050)
+
+            tensors.append((clean_tensor, noise_tensor))
+
+    return paths, tensors
 
 
-load_heart_noised(
-    clean_dir="data/heart_sound",
-    noised_dir="data/heart_noised",
-)
+# paths, tensors = load_heart_noised(
+#     clean_dir="data/heart_sound",
+#     noised_dir="data/heart_noised",
+# )

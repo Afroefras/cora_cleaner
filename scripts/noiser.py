@@ -29,7 +29,7 @@ def noise_dir(audios_dir: str, noises_dir: str, output_dir: str, k_noises: int) 
             noised = noiser(audio, noise, louder=db_louder)
 
             new_audio_name = audio.replace(audios_dir, "")
-            new_audio_name = new_audio_name.replace("/", "_")
+            new_audio_name = new_audio_name.replace("/", "-")
             new_audio_name = new_audio_name.replace(".wav", "")
 
             noise_name = noise.stem

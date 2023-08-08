@@ -10,9 +10,12 @@ black = "==23.7.0"
 flake8 = "==6.0.0"
 resampy = "==0.4.2"
 pydub = "==0.25.1"
+torch = "==2.0.1"
+torchvision = "==0.15.2"
+torchaudio = "==2.0.2"
 
 [dev-packages]
-ipykernel = "*"
+ipykernel = "==6.25.1"
 
 [requires]
 python_version = "3.11"

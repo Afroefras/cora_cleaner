@@ -25,7 +25,7 @@ def noise_dir(audios_dir: str, noises_dir: str, output_dir: str, k_noises: int) 
         choosed_noises = choices(noises, k=k_noises)
 
         for noise in choosed_noises:
-            db_louder = randint(17, 25)
+            db_louder = randint(1, 7)
             noised = noiser(audio, noise, louder=db_louder)
 
             new_audio_name = audio.replace(audios_dir, "")
@@ -39,8 +39,8 @@ def noise_dir(audios_dir: str, noises_dir: str, output_dir: str, k_noises: int) 
 
 
 # noise_dir(
-#     audios_dir="data/heart_sound",
+#     audios_dir="data/heart_sound_test_small",
 #     noises_dir="data/hospital_noise",
-#     output_dir="data/heart_noised",
+#     output_dir="data/heart_noised_test_small",
 #     k_noises=5
 # )

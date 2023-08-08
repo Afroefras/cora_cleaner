@@ -40,7 +40,6 @@ def load_heart_noised(clean_dir: str, noised_dir: str) -> list:
     noises = list(map(str, noises))
 
     paths = {}
-    tensors = []
     for clean_path in clean_dir.glob("**/*.wav"):
         clean_name = clean_path.stem
 
@@ -48,23 +47,4 @@ def load_heart_noised(clean_dir: str, noised_dir: str) -> list:
         noises_related = list(noises_related)
         paths[str(clean_path)] = noises_related
 
-        clean_tensor = load_mfcc(clean_path, duration=10, sr=22050)
-        for noise_path in noises_related:
-            noise_tensor = load_mfcc(noise_path, duration=10, sr=22050)
-
-            tensors.append((clean_tensor, noise_tensor))
-
-    return paths, tensors
-
-
-# paths_tensors = load_heart_noised(
-#     clean_dir="data/heart_sound",
-#     noised_dir="data/heart_noised",
-# )
-
-# import pickle
-
-# FILE_PATH = 'data/tensors/paths_tensors_2023-08-07.xz'
-# # Store data (serialize)
-# with open(FILE_PATH, 'wb') as handle:
-#     pickle.dump(paths_tensors, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    return paths

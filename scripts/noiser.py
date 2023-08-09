@@ -33,9 +33,9 @@ def noise_dir(audios_dir: str, noises_dir: str, output_dir: str, k_noises: int) 
             new_audio_name = new_audio_name.replace(".wav", "")
 
             noise_name = noise.stem
-            new_audio_name += f"_{db_louder}dB_{noise_name}noise.mp3"
+            new_audio_name += f"_{db_louder}dB_{noise_name}noise.wav"
 
-            noised.export(output_dir.joinpath(new_audio_name), format="mp3")
+            noised.export(output_dir.joinpath(new_audio_name), format="wav")
 
 
 # noise_dir(

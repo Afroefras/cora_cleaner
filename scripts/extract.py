@@ -1,7 +1,7 @@
 from pathlib import Path
 
 
-def load_heart_noised_dict(clean_dir: str, noised_dir: str) -> list:
+def load_heart_noised_paths(clean_dir: str, noised_dir: str) -> list:
     clean_dir = Path(clean_dir)
     noised_dir = Path(noised_dir)
 

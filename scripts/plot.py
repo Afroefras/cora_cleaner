@@ -25,7 +25,8 @@ def plot_audio_sample(audio_data, title):
     plt.grid(True)
 
     # Espectrograma
-    plt.subplot(2, 2, 2)
+    plt.subplot(2, 1, 2)
+    plt.subplot(2, 1, 2)
     spectrogram = librosa.amplitude_to_db(
         np.abs(librosa.stft(audio_data_float.squeeze().numpy())), ref=np.max
     )
@@ -34,7 +35,7 @@ def plot_audio_sample(audio_data, title):
     plt.title("Espectrograma - " + title)
 
     # MFCC
-    plt.subplot(2, 1, 2)
+    plt.subplot(2, 2, 2)
     mfcc = librosa.feature.mfcc(
         y=audio_data_float.squeeze().numpy(), sr=22050
     )

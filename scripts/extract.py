@@ -8,12 +8,13 @@ def load_heart_noised_dict(clean_dir: str, noised_dir: str) -> list:
     noises = noised_dir.glob("**/*.wav")
     noises = list(map(str, noises))
 
-    paths = {}
+    paths = []
     for clean_path in clean_dir.glob("**/*.wav"):
         clean_name = clean_path.stem
 
         noises_related = filter(lambda x: clean_name in x, noises)
         noises_related = list(noises_related)
-        paths[str(clean_path)] = noises_related
+        for noise_path in noises_related:
+            paths.append((str(clean_path), noise_path))
 
     return paths

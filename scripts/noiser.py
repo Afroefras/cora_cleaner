@@ -23,7 +23,7 @@ def noise_dir(audios_dir: str, noises_dir: str, output_dir: str, k_noises: int) 
         choosed_noises = choices(noises, k=k_noises)
 
         for noise in choosed_noises:
-            noise_louder = randint(0, 2)
+            noise_louder = -randint(10, 20)
             noised = noiser(audio, noise, noise_louder)
 
             new_audio_name = audio.replace(audios_dir, "")
@@ -31,7 +31,7 @@ def noise_dir(audios_dir: str, noises_dir: str, output_dir: str, k_noises: int) 
             new_audio_name = new_audio_name.replace(".wav", "")
 
             noise_name = noise.stem
-            new_audio_name += f"_{noise_name}noise_{noise_louder}dB.wav"
+            new_audio_name += f"_{noise_name}noise_{noise_louder}dB_louder.wav"
 
             noised.export(output_dir.joinpath(new_audio_name), format="wav")
 

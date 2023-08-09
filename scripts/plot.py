@@ -1,7 +1,8 @@
 import numpy as np
 import librosa.display
-from torch import Tensor
 import matplotlib.pyplot as plt
+from torch import Tensor, no_grad
+
 
 def plot_audio_sample(audio_data, title):
     """
@@ -36,12 +37,25 @@ def plot_audio_sample(audio_data, title):
 
     # MFCC
     plt.subplot(2, 2, 2)
-    mfcc = librosa.feature.mfcc(
-        y=audio_data_float.squeeze().numpy(), sr=22050
-    )
+    mfcc = librosa.feature.mfcc(y=audio_data_float.squeeze().numpy(), sr=22050)
     librosa.display.specshow(mfcc, x_axis="time")
     plt.colorbar()
     plt.title("MFCC - " + title)
 
     plt.tight_layout()
     plt.show()
+
+
+def plot_prediction_from_tuple(model, clean_noisy_tuple: tuple, duration: int):
+    with no_grad():
+        model.eval()
+        pred = model(clean_noisy_tuple[-1])
+
+    noisy = clean_noisy_tuple[-1].reshape(-1)[..., :duration]
+    plot_audio_sample(noisy, "Audio sucio")
+
+    decoded = pred.reshape(-1)[..., :duration]
+    plot_audio_sample(decoded, "Audio reconstruido")
+
+    clean = clean_noisy_tuple[0].reshape(-1)[..., :duration]
+    plot_audio_sample(clean, "Audio limpio")

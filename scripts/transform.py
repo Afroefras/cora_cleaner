@@ -26,7 +26,7 @@ def create_spectrogram(audio, sample_rate, n_fft=400, hop_length=160, win_length
     return specgram(audio).reshape(1, 1, -1)
 
 
-def compute_mfcc(audio, sample_rate, n_mfcc=13):
+def compute_mfcc(audio, sample_rate, n_mfcc=22):
     """
     Calcula los coeficientes cepstrales de frecuencia mel (MFCC) de un audio.
 

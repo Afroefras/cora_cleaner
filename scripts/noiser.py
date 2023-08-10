@@ -37,8 +37,8 @@ def noise_dir(audios_dir: str, noises_dir: str, output_dir: str, k_noises: int) 
 
 
 # noise_dir(
-#     audios_dir="data/heart_sound_test_small",
+#     audios_dir="data/heart_sound",
 #     noises_dir="data/hospital_noise",
-#     output_dir="data/heart_noised_test_small",
-#     k_noises=5,
+#     output_dir="data/heart_noised",
+#     k_noises=10,
 # )

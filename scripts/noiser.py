@@ -3,13 +3,11 @@ from pydub import AudioSegment
 from random import choices, randint
 
 
-def noiser(audio_path: str, noise_path: str, louder: int) -> AudioSegment:
+def noiser(audio_path: str, noise_path: str, noise_louder: int) -> AudioSegment:
     audio = AudioSegment.from_file(audio_path, format="wav")
     noise = AudioSegment.from_file(noise_path, format="wav")
-
-    audio += louder
+    noise += noise_louder
     noised = audio.overlay(noise, position=0, loop=True)
-
     return noised
 
 
@@ -25,22 +23,22 @@ def noise_dir(audios_dir: str, noises_dir: str, output_dir: str, k_noises: int) 
         choosed_noises = choices(noises, k=k_noises)
 
         for noise in choosed_noises:
-            db_louder = randint(17, 25)
-            noised = noiser(audio, noise, louder=db_louder)
+            noise_louder = -randint(10, 20)
+            noised = noiser(audio, noise, noise_louder)
 
             new_audio_name = audio.replace(audios_dir, "")
             new_audio_name = new_audio_name.replace("/", "-")
             new_audio_name = new_audio_name.replace(".wav", "")
 
             noise_name = noise.stem
-            new_audio_name += f"_{db_louder}dB_{noise_name}noise.mp3"
+            new_audio_name += f"_{noise_name}noise_{noise_louder}dB_louder.wav"
 
-            noised.export(output_dir.joinpath(new_audio_name), format="mp3")
+            noised.export(output_dir.joinpath(new_audio_name), format="wav")
 
 
 # noise_dir(
-#     audios_dir="data/heart_sound",
+#     audios_dir="data/heart_sound_test_small",
 #     noises_dir="data/hospital_noise",
-#     output_dir="data/heart_noised",
-#     k_noises=5
+#     output_dir="data/heart_noised_test_small",
+#     k_noises=5,
 # )

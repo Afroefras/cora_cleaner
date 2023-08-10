@@ -2,3 +2,7 @@
 *.wav
 *.mp3
 *.xz
+*.zip
+*.pyc
+*.yaml
+*.csv

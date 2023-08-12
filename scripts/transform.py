@@ -23,7 +23,7 @@ def create_spectrogram(audio, sample_rate, n_fft=400, hop_length=160, win_length
         hop_length=hop_length,
         win_length=win_length,
     )
-    return specgram(audio).reshape(1, 1, -1)
+    return specgram(audio)
 
 
 def compute_mfcc(audio, sample_rate, n_mfcc=22):
@@ -39,13 +39,12 @@ def compute_mfcc(audio, sample_rate, n_mfcc=22):
         numpy.ndarray: Coeficientes MFCC calculados.
     """
     mfcc = librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=n_mfcc)
-    mfcc = torch.Tensor(mfcc)
-    return mfcc.reshape(1, 1, -1)
+    return torch.Tensor(mfcc)
 
 
 def spec_n_mfcc(audio, sample_rate):
-    spec = create_spectrogram(audio, sample_rate)
-    mfcc = compute_mfcc(audio.numpy(), sample_rate)
+    spec = create_spectrogram(audio, sample_rate).reshape(1, 1, -1)
+    mfcc = compute_mfcc(audio.numpy(), sample_rate).reshape(1, 1, -1)
 
     joined = torch.cat((audio, spec, mfcc), dim=2)
     return joined

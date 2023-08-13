@@ -46,16 +46,17 @@ def plot_audio_sample(audio_data, title):
     plt.show()
 
 
-def plot_prediction_from_tuple(model, clean_noisy_tuple: tuple, duration: int):
+def plot_prediction_from_dataset(model, dataset, duration, idx):
     with no_grad():
         model.eval()
-        pred = model(clean_noisy_tuple[-1])
+        reshaped = dataset[idx][1].unsqueeze(0)
+        pred = model(reshaped)
 
-    noisy = clean_noisy_tuple[-1].reshape(-1)[..., :duration]
-    plot_audio_sample(noisy, "Audio sucio")
+    noisy = dataset[idx][1][..., :duration]
+    plot_audio_sample(noisy.squeeze(), "Audio sucio")
 
-    decoded = pred.reshape(-1)[..., :duration]
-    plot_audio_sample(decoded, "Audio reconstruido")
+    decoded = pred[..., :duration]
+    plot_audio_sample(decoded.squeeze(), "Audio reconstruido")
 
-    clean = clean_noisy_tuple[0].reshape(-1)[..., :duration]
-    plot_audio_sample(clean, "Audio limpio")
+    clean = dataset[idx][0][..., :duration]
+    plot_audio_sample(clean.squeeze(), "Audio limpio")

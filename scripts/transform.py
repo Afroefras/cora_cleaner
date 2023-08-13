@@ -43,8 +43,8 @@ def compute_mfcc(audio, sample_rate, n_mfcc=22):
 
 
 def spec_n_mfcc(audio, sample_rate):
-    spec = create_spectrogram(audio, sample_rate).reshape(1, 1, -1)
-    mfcc = compute_mfcc(audio.numpy(), sample_rate).reshape(1, 1, -1)
+    spec = create_spectrogram(audio, sample_rate).reshape(1, -1)
+    mfcc = compute_mfcc(audio.numpy(), sample_rate).reshape(1, -1)
 
-    joined = torch.cat((audio, spec, mfcc), dim=2)
+    joined = torch.cat((audio, spec, mfcc), dim=1)
     return joined

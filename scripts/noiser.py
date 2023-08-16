@@ -23,7 +23,7 @@ def noise_dir(audios_dir: str, noises_dir: str, output_dir: str, k_noises: int) 
         choosed_noises = choices(noises, k=k_noises)
 
         for noise in choosed_noises:
-            noise_louder = -randint(10, 20)
+            noise_louder = -randint(11, 22)
             noised = noiser(audio, noise, noise_louder)
 
             new_audio_name = audio.replace(audios_dir, "")
@@ -36,9 +36,9 @@ def noise_dir(audios_dir: str, noises_dir: str, output_dir: str, k_noises: int) 
             noised.export(output_dir.joinpath(new_audio_name), format="wav")
 
 
-# noise_dir(
-#     audios_dir="data/heart_sound",
-#     noises_dir="data/hospital_noise",
-#     output_dir="data/heart_noised",
-#     k_noises=10,
-# )
+noise_dir(
+    audios_dir="data/heart_sound_healthy",
+    noises_dir="data/hospital_noise",
+    output_dir="data/heart_noised_healthy",
+    k_noises=10,
+)

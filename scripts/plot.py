@@ -46,17 +46,24 @@ def plot_audio_sample(audio_data, title):
     plt.show()
 
 
-def plot_prediction_from_dataset(model, dataset, duration, idx):
+def plot_prediction_comparison(model, dataloader, index):
+    model.eval()
     with no_grad():
-        model.eval()
-        reshaped = dataset[idx][1].unsqueeze(0)
-        pred = model(reshaped)
+        batch = next(iter(dataloader))
+        clean = batch[0][index]
+        dirty = batch[-1][index]
 
-    noisy = dataset[idx][1][..., :duration]
-    plot_audio_sample(noisy.squeeze(), "Audio sucio")
-
-    decoded = pred[..., :duration]
-    plot_audio_sample(decoded.squeeze(), "Audio reconstruido")
-
-    clean = dataset[idx][0][..., :duration]
-    plot_audio_sample(clean.squeeze(), "Audio limpio")
+        reconstructed = model(dirty.unsqueeze(0))  # Añadir dimensión de batch
+        
+        fig, axs = plt.subplots(3, 1, figsize=(15, 10))
+        axs[0].plot(dirty.squeeze())
+        axs[0].set_title("Audio Sucio")
+        
+        axs[1].plot(clean.squeeze())
+        axs[1].set_title("Audio Limpio")
+        
+        axs[2].plot(reconstructed.squeeze())
+        axs[2].set_title("Audio Reconstruido")
+        
+        plt.tight_layout()
+        plt.show()

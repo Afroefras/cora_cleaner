@@ -63,7 +63,7 @@ Para comenzar a trabajar con *Cora Cleaner*, sigue estos pasos para configurar t
 Primero, clona el repositorio a tu máquina local utilizando Git:
 
 ```bash
-git clone https://github.com/tu-usuario/cora_cleaner.git
+git clone https://github.com/afroefras/cora_cleaner.git
 cd cora_cleaner
 ```
 
